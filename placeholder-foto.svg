@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <rect width="400" height="400" fill="#EEF2F8"/>
+  <g fill="none" stroke="#B9C6DC" stroke-width="2">
+    <rect x="90" y="130" width="220" height="150" rx="10"/>
+    <circle cx="200" cy="205" r="38"/>
+    <path d="M150 130 L170 105 H230 L250 130"/>
+  </g>
+  <text x="200" y="330" font-family="Arial, sans-serif" font-size="16" fill="#8393AD" text-anchor="middle">Ganti dengan foto 1:1</text>
+</svg>

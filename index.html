@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UPPKB Pallangga</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  
+  <!-- AOS (Animate On Scroll) CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+<!-- LIGHTBOX FOTO GALERI (SLIDESHOW) -->
+<div class="lightbox-overlay" id="lightboxFoto" onclick="if(event.target===this) closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="event.stopPropagation(); lightboxPrev()"><i class="ti ti-chevron-left"></i></button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <button class="lightbox-nav lightbox-next" onclick="event.stopPropagation(); lightboxNext()"><i class="ti ti-chevron-right"></i></button>
+  <div class="lightbox-counter" id="lightboxCounter"></div>
+</div>
+
+<!-- MODAL ANGGOTA -->
+<div class="modal-overlay" id="modalAnggota">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-photo" id="mPhoto">AB</div>
+    <h3 id="mNama">Nama Lengkap</h3>
+    <div class="nim" id="mNim">NIP/ID:</div>
+    <div class="role" id="mRole">Penguji</div>
+    <div class="modal-sosmed" id="mSosmed">
+      <a id="mIg" href="#" target="_blank"><i class="ti ti-brand-instagram"></i> <span id="mIgText">@instagram</span></a>
+      <a id="mTiktok" href="#" target="_blank"><i class="ti ti-brand-tiktok"></i> <span id="mTiktokText">@tiktok</span></a>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP LAYANAN -->
+<div class="popup-overlay" id="popupLayanan">
+  <div class="popup">
+    <button class="popup-close" onclick="closePopup()">✕ Tutup</button>
+    <div class="popup-head" id="popupHead">
+      <span class="popup-badge">Dikecualikan dari Penimbangan</span>
+      <div class="popup-icon-row">
+        <div class="popup-icon" id="popupIcon"></div>
+        <h3 id="popupTitle"></h3>
+      </div>
+    </div>
+    <div class="popup-body">
+      <span class="sub" id="popupSub"></span>
+      <div id="popupSpecs"></div>
+    </div>
+  </div>
+</div>
+
+<div class="chrome">
+  <div class="nav">
+    <div class="nb">
+      <div class="nlogo-group">
+        <img src="logo2.png" alt="Logo Kementerian Perhubungan">
+        <img src="logo1.png" alt="Logo Ditjen Hubdat">
+        <img src="logo3.png" alt="Logo BPTD Kelas II Sulsel">
+        <img src="logo4.png" alt="Logo UPPKB Pallangga">
+      </div>
+      <div class="ntitle">
+        <span class="nmain">UPPKB Pallangga</span>
+      </div>
+    </div>
+    <button class="nav-toggle" id="navToggle" onclick="toggleNav()"><i class="ti ti-menu-2"></i></button>
+    <div class="nlinks" id="navLinks">
+      <div class="nl act" onclick="go('dashboard')">Home</div>
+      <div class="nl" onclick="go('struktur')">Struktur</div>
+      <div class="nl" onclick="go('fasilitas')">Fasilitas</div>
+      <div class="nl" onclick="go('layanan')">Layanan</div>
+      <div class="nl" onclick="go('komoditi')">Komoditi</div>
+      <div class="nl" onclick="go('tim')">Tim Pengembang</div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD / HOME -->
+  <div class="page show" id="p-dashboard">
+    <div class="hero">
+      <svg class="hcirc" viewBox="0 0 800 210" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <g stroke="white" stroke-width="0.7" fill="none" opacity="0.07">
+          <line x1="0" y1="60" x2="800" y2="60"/><line x1="0" y1="150" x2="800" y2="150"/>
+          <line x1="80" y1="0" x2="80" y2="210"/><line x1="240" y1="0" x2="240" y2="210"/>
+          <line x1="420" y1="0" x2="420" y2="210"/><line x1="600" y1="0" x2="600" y2="210"/>
+          <circle cx="80" cy="60" r="4" fill="rgba(200,168,75,0.7)" stroke="none"/>
+          <circle cx="240" cy="150" r="4" fill="rgba(200,168,75,0.7)" stroke="none"/>
+          <circle cx="420" cy="60" r="4" fill="rgba(200,168,75,0.7)" stroke="none"/>
+          <circle cx="600" cy="150" r="4" fill="rgba(200,168,75,0.7)" stroke="none"/>
+          <rect x="130" y="44" width="22" height="32" rx="3" fill="rgba(200,168,75,0.18)" stroke="rgba(200,168,75,0.4)"/>
+          <rect x="490" y="134" width="22" height="32" rx="3" fill="rgba(200,168,75,0.18)" stroke="rgba(200,168,75,0.4)"/>
+        </g>
+      </svg>
+      <div class="hcont" data-aos="fade-up">
+        <div class="hero-badge">Instansi Resmi &middot; BPTD Kelas II Sulawesi Selatan</div>
+        <div class="hero-greeting">Selamat Datang di</div>
+        <div class="hero-title">Unit Pelaksana Penimbangan Kendaraan Bermotor Pallangga</div>
+        <div class="hero-desc">Pengawasan Muatan Angkutan Barang dan Penyelenggaraan Penimbangan Kendaraan Bermotor di Kabupaten Gowa</div>
+        <div class="hero-btns">
+          <button class="hero-btn" onclick="scrollToMenu()">View</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="sec">
+      <div class="menu-header" data-aos="fade-up">
+        <div class="menu-label">Profil</div>
+        <div class="menu-title">Profil UPPKB Pallangga</div>
+        <div class="menu-desc">Mengenal lebih dekat unit pelaksana penimbangan kendaraan bermotor di Kabupaten Gowa</div>
+      </div>
+      <div class="profil-grid">
+        <div class="profil-text" data-aos="fade-right">
+          <p>UPPKB Pallangga merupakan satuan pelayanan dibawah Balai Pengelola Transportasi Darat kelas II Sulawesi Selatan yang bertugas melakukan pengawasan muatan angkutan barang dijalan guna untuk mendukung keselamatan lalu lintas, menjaga kepatuhan terhadap muatan kendaraan, serta melindungi infrastruktur jalan dari kerusakan akibat kendaraan yang melebihi batas muatan. UPPKB Pallangga berlokasi di Jl. Poros Palangga, Mangalli, Kec. Pallangga, Kabupaten Gowa, Sulawesi Selatan 92161. </p>
+        </div>
+        <div class="profil-img-wrap" data-aos="fade-left"><img src="Gedung.jpeg" alt="Gedung UPPKB Pallangga"></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="menu-header" data-aos="fade-up">
+        <div class="menu-label">Arah & Tujuan</div>
+        <div class="menu-title">Visi & Misi BPTD</div>
+        <div class="menu-desc">Landasan komitmen kami dalam pelayanan terbaik</div>
+      </div>
+      <div class="vm-grid">
+        <div class="vm-v" data-aos="fade-right"><div class="vm-lbl"><span class="vi"><i class="ti ti-eye"></i></span>Visi</div><h3>Terwujudnya Tingkat Pelayanan Lalu Lintas dan Angkutan Jalan yang Baik</h3></div>
+        <div class="vm-m" data-aos="fade-left"><div class="vm-lbl"><span class="vi"><i class="ti ti-flag"></i></span>Misi</div><h3>Terwujudnya pelayanan lalu-lintas dan angkutan jalan yang aman,
+          selamat, tertib, lancar dan terpadu dalam moda angkutan serta mendorong perekonomian nasional, menunjukan kesejahteraan
+          umum memperkokoh persatuan dan kesatuan bangsa, serta mampu menjunjung tinggi martabat bangsa</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="menu-header" data-aos="fade-up">
+        <div class="menu-label">Peran Kami</div>
+        <div class="menu-title">Tugas dan Fungsi UPPKB Pallangga</div>
+        <div class="menu-desc">Peran utama unit pelaksana dalam menjaga ketertiban dan keselamatan angkutan barang</div>
+      </div>
+      <div class="divider" data-aos="fade-up">Tugas</div>
+      <div class="tf-grid">
+        <div class="tf-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="tf-icon" style="background:linear-gradient(135deg,#E6F1FF,#C8E4FC);color:#1A4A8A;"><span class="tf-num">1</span><i class="ti ti-scale"></i></div>
+          <h4>Penimbangan Kendaraan</h4><p>Melakukan penimbangan terhadap kendaraan bermotor, terutama kendaraan angkutan barang, untuk memastikan beratnya sesuai dengan ketentuan yang berlaku.</p>
+        </div>
+        <div class="tf-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="tf-icon" style="background:linear-gradient(135deg,#EAF3DE,#D5EAC0);color:#3B6D11;"><span class="tf-num">2</span><i class="ti ti-shield-check"></i></div>
+          <h4>Pengawasan Kepatuhan</h4><p>Melakukan pengawasan dan penindakan kendaraan yang melebihi batas berat maksimum yang diizinkan, guna mencegah kerusakan infrastruktur jalan.</p>
+        </div>
+        <div class="tf-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="tf-icon" style="background:linear-gradient(135deg,#FCE8E8,#F9CFCF);color:#993C1D;"><span class="tf-num">3</span><i class="ti ti-road"></i></div>
+          <h4>Pencegahan Kerusakan Infrastruktur</h4><p>Menjaga agar kendaraan yang melintas tidak merusak jalan raya dengan melebihi kapasitas beban yang diizinkan.</p>
+        </div>
+        <div class="tf-card" data-aos="fade-up" data-aos-delay="250">
+          <div class="tf-icon" style="background:linear-gradient(135deg,#FAEEDA,#F3DBA9);color:#854F0B;"><span class="tf-num">4</span><i class="ti ti-report"></i></div>
+          <h4>Pengumpulan Data & Pelaporan</h4><p>Mengumpulkan data hasil penimbangan dan menyusun laporan untuk keperluan evaluasi dan pengambilan kebijakan.</p>
+        </div>
+        <div class="tf-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="tf-icon" style="background:linear-gradient(135deg,#F3E8FF,#E4CBFB);color:#7E22CE;"><span class="tf-num">5</span><i class="ti ti-gavel"></i></div>
+          <h4>Pemberian Sanksi</h4><p>Memberikan tindakan hukum atau denda bagi kendaraan yang melanggar aturan berat kendaraan.</p>
+        </div>
+      </div>
+      <div class="divider" data-aos="fade-up">Fungsi</div>
+      <div class="tf-grid">
+        <div class="tf-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="tf-icon" style="background:linear-gradient(135deg,#E6F1FF,#C8E4FC);color:#1A4A8A;"><span class="tf-num">1</span><i class="ti ti-notebook"></i></div>
+          <h4>Pencatatan</h4><p>Untuk melihat perkembangan lalu lintas angkutan barang dan kendaraan yang melebihi muatan.</p>
+        </div>
+        <div class="tf-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="tf-icon" style="background:linear-gradient(135deg,#EAF3DE,#D5EAC0);color:#3B6D11;"><span class="tf-num">2</span><i class="ti ti-eye"></i></div>
+          <h4>Pengawasan</h4><p>Lalu lintas angkutan barang memerlukan pengawasan tonase kendaraan dan sejenis barang yang diangkut.</p>
+        </div>
+        <div class="tf-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="tf-icon" style="background:linear-gradient(135deg,#FCE8E8,#F9CFCF);color:#993C1D;"><span class="tf-num">3</span><i class="ti ti-alert-triangle"></i></div>
+          <h4>Penindakan</h4><p>Untuk mencegah kerusakan jalan diperlukan penindakan berdasarkan berat tonase yang diijinkan untuk tiap kelas jalan.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="menu-header" data-aos="fade-up">
+        <div class="menu-label">Dampak ODOL</div>
+        <div class="menu-title">Mewujudkan Indonesia Bebas ODOL</div>
+        <div class="menu-desc">Mengawasi dan mengendalikan kendaraan Over Dimension Over Loading (ODOL) demi keselamatan berlalu lintas</div>
+      </div>
+      <div class="profil-text" style="margin-bottom:12px;" data-aos="fade-up">
+        <p>UPPKB Pallangga bertugas melakukan penimbangan dan pemeriksaan dimensi kendaraan angkutan barang untuk mencegah praktik ODOL (Over Dimension Over Loading) yang membahayakan keselamatan pengguna jalan serta merusak infrastruktur transportasi.</p>
+      </div>
+      
+      <div class="dampak-grid">
+        <div class="dampak-item" data-aos="fade-up" data-aos-delay="100">
+          <div class="dampak-icon"><i class="ti ti-alert-triangle"></i></div>
+          <div class="dampak-content">
+            <strong>Penyebab Kecelakaan</strong>
+            <p>Menurunkan tingkat keselamatan lalu lintas dan berpotensi memicu kecelakaan fatal di jalan raya.</p>
+          </div>
+        </div>
+        
+        <div class="dampak-item" data-aos="fade-up" data-aos-delay="150">
+          <div class="dampak-icon"><i class="ti ti-cloud-fog"></i></div>
+          <div class="dampak-content">
+            <strong>Polusi Udara Berlebih</strong>
+            <p>Emisi CO2 meningkat drastis akibat mesin kendaraan beroperasi melampaui batas batas kemampuannya.</p>
+          </div>
+        </div>
+
+        <div class="dampak-item" data-aos="fade-up" data-aos-delay="200">
+          <div class="dampak-icon"><i class="ti ti-road-off"></i></div>
+          <div class="dampak-content">
+            <strong>Kerusakan Infrastruktur</strong>
+            <p>Jalan, jembatan, dan pelabuhan cepat rusak sehingga membengkakkan biaya perawatan infrastruktur negara.</p>
+          </div>
+        </div>
+
+        <div class="dampak-item" data-aos="fade-up" data-aos-delay="250">
+          <div class="dampak-icon"><i class="ti ti-engine-off"></i></div>
+          <div class="dampak-content">
+            <strong>Kerusakan Kendaraan</strong>
+            <p>Komponen vital kendaraan (ban, rem, suspensi) lebih cepat aus dan berisiko mengalami kegagalan fungsi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="menu-header" data-aos="fade-up">
+        <div class="menu-label">Jadwal Pelayanan</div>
+        <div class="menu-title">Jam Operasional</div>
+        <div class="menu-desc">Jadwal shift pelayanan penimbangan UPPKB Pallangga</div>
+      </div>
+      <div class="jam-card" data-aos="zoom-in">
+        <div class="shift-row"><div class="shift-left"><div class="shift-dot" style="background:#F59E0B"></div><div class="shift-name">Shift Pagi</div></div><div class="shift-time">09.00 – 11.00</div></div>
+        <div class="shift-row"><div class="shift-left"><div class="shift-dot" style="background:#3B82F6"></div><div class="shift-name">Shift Sore</div></div><div class="shift-time">16.00 – 18.00</div></div>
+        <div class="shift-row"><div class="shift-left"><div class="shift-dot" style="background:#6366F1"></div><div class="shift-name">Shift Malam</div></div><div class="shift-time">18.30 – 00.00</div></div>
+        <div class="jam-note"><i class="ti ti-clock-24" style="font-size:15px;flex-shrink:0;margin-top:1px;color:var(--b600)"></i><span>Pos timbang beroperasi <strong>24 jam</strong> dengan 3 regu bergiliran setiap harinya.</span></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="menu-header" id="menuUtama" data-aos="fade-up">
+        <div class="menu-label">Menu Utama</div>
+        <div class="menu-title">Akses Cepat</div>
+        <div class="menu-desc">Pilih menu di bawah untuk mengakses informasi yang Anda butuhkan</div>
+      </div>
+      <div class="dash-grid">
+        <div class="dcard" data-aos="fade-up" data-aos-delay="100" onclick="go('struktur')"><div class="dicon it"><i class="ti ti-sitemap" style="font-size:20px"></i></div><h3>Struktur Organisasi</h3><p>Susunan jabatan dan peran dalam operasional UPPKB.</p><div class="darr">→ Selengkapnya</div></div>
+        <div class="dcard" data-aos="fade-up" data-aos-delay="150" onclick="go('fasilitas')"><div class="dicon ig"><i class="ti ti-building-warehouse" style="font-size:20px"></i></div><h3>Fasilitas</h3><p>Sarana dan prasarana penunjang pelayanan di UPPKB Pallangga.</p><div class="darr">→ Selengkapnya</div></div>
+        <div class="dcard" data-aos="fade-up" data-aos-delay="200" onclick="go('layanan')"><div class="dicon ib"><i class="ti ti-car" style="font-size:20px"></i></div><h3>Layanan</h3><p>Jenis kendaraan yang diuji beserta spesifikasi teknisnya.</p><div class="darr">→ Selengkapnya</div></div>
+        <div class="dcard" data-aos="fade-up" data-aos-delay="250" onclick="go('komoditi')"><div class="dicon ia"><i class="ti ti-package" style="font-size:20px"></i></div><h3>Jenis Komoditi</h3><p>Kategori barang dan muatan yang diatur dalam pengujian.</p><div class="darr">→ Selengkapnya</div></div>
+        <div class="dcard" data-aos="fade-up" data-aos-delay="300" onclick="go('tim')"><div class="dicon ipi"><i class="ti ti-user-circle" style="font-size:20px"></i></div><h3>Tim Pengembang</h3><p>Profil mahasiswa yang mengembangkan website ini.</p><div class="darr">→ Selengkapnya</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STRUKTUR -->
+  <div class="page" id="p-struktur">
+    <div class="ph">
+      <svg class="phcirc" viewBox="0 0 800 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><g stroke="white" stroke-width="0.7" fill="none" opacity="0.06"><line x1="0" y1="35" x2="800" y2="35"/><line x1="0" y1="68" x2="800" y2="68"/><line x1="120" y1="0" x2="120" y2="80"/><line x1="420" y1="0" x2="420" y2="80"/><line x1="680" y1="0" x2="680" y2="80"/><circle cx="120" cy="35" r="3" fill="rgba(200,168,75,0.7)" stroke="none"/><circle cx="420" cy="68" r="3" fill="rgba(200,168,75,0.7)" stroke="none"/><circle cx="680" cy="35" r="3" fill="rgba(200,168,75,0.7)" stroke="none"/></g></svg>
+      <div class="phcont" data-aos="fade-up">
+        <div class="ph-label">Organisasi</div>
+        <div class="ph-title">Struktur Organisasi</div>
+        <div class="ph-desc">Susunan jabatan dan hierarki operasional UPPKB Pallangga</div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="org-chart-wrap">
+      <div class="org-chart" data-aos="zoom-in">
+        <div class="oc-node">
+          <div class="org-card org-card-gold" data-aos="fade-up" data-aos-delay="100">
+            <div class="org-avatar org-avatar-gold"><i class="ti ti-user"></i></div>
+            <div class="org-card-body">
+              <h4>Wasatpel</h4>
+              <p>Pengawas Satuan Pelayanan</p>
+            </div>
+          </div>
+        </div>
+        <div class="oc-stem"></div>
+        <div class="oc-mid">
+          <svg class="oc-svg-top" viewBox="0 0 800 28" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="400" y1="0" x2="400" y2="6" stroke="#93B4D8" stroke-width="2"/>
+            <line x1="133" y1="6" x2="667" y2="6" stroke="#93B4D8" stroke-width="2"/>
+            <line x1="133" y1="6" x2="133" y2="28" stroke="#93B4D8" stroke-width="2"/>
+            <line x1="400" y1="6" x2="400" y2="28" stroke="#93B4D8" stroke-width="2"/>
+            <line x1="667" y1="6" x2="667" y2="28" stroke="#93B4D8" stroke-width="2"/>
+          </svg>
+          <div class="oc-cards-3">
+            <div class="org-card org-card-white org-card-sm" data-aos="fade-up" data-aos-delay="150">
+              <div class="org-avatar org-avatar-blue"><i class="ti ti-gavel"></i></div>
+              <div class="org-card-body"><h4>PPNS</h4><p>Penyidik Pegawai Negeri Sipil</p></div>
+            </div>
+            <div class="org-card org-card-white org-card-sm" data-aos="fade-up" data-aos-delay="200">
+              <div class="org-avatar org-avatar-blue"><i class="ti ti-clipboard-check"></i></div>
+              <div class="org-card-body"><h4>Penguji</h4><p>Penguji Kendaraan Bermotor</p></div>
+            </div>
+            <div class="org-card org-card-white org-card-sm" data-aos="fade-up" data-aos-delay="250">
+              <div class="org-avatar org-avatar-blue"><i class="ti ti-file-text"></i></div>
+              <div class="org-card-body"><h4>Admin</h4><p>Pengadministrasi Perkantoran</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="oc-sub">
+          <svg class="oc-svg-sub" viewBox="0 0 800 40" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="200" y1="0" x2="200" y2="20" stroke="#93B4D8" stroke-width="2"/>
+            <line x1="600" y1="0" x2="600" y2="20" stroke="#93B4D8" stroke-width="2"/>
+            <line x1="200" y1="20" x2="600" y2="20" stroke="#93B4D8" stroke-width="2"/>
+            <line x1="400" y1="20" x2="400" y2="40" stroke="#93B4D8" stroke-width="2"/>
+          </svg>
+          <div class="org-regu-label" data-aos="zoom-in" data-aos-delay="300">Regu 1, 2 &amp; 3</div>
+          <svg class="oc-svg-bot" viewBox="0 0 534 24" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="89" y1="0" x2="445" y2="0" stroke="#93B4D8" stroke-width="2"/>
+            <line x1="89" y1="0" x2="89" y2="24" stroke="#93B4D8" stroke-width="2"/>
+            <line x1="267" y1="0" x2="267" y2="24" stroke="#93B4D8" stroke-width="2"/>
+            <line x1="445" y1="0" x2="445" y2="24" stroke="#93B4D8" stroke-width="2"/>
+          </svg>
+          <div class="oc-cards-3">
+            <div class="org-card org-card-white org-card-sm" data-aos="fade-up" data-aos-delay="350">
+              <div class="org-avatar org-avatar-blue"><i class="ti ti-scale"></i></div>
+              <div class="org-card-body"><h4>Operator</h4><p>Operator Penimbangan</p></div>
+            </div>
+            <div class="org-card org-card-white org-card-sm" data-aos="fade-up" data-aos-delay="400">
+              <div class="org-avatar org-avatar-blue"><i class="ti ti-weight"></i></div>
+              <div class="org-card-body"><h4>Petugas</h4><p>Petugas Penimbangan</p></div>
+            </div>
+            <div class="org-card org-card-white org-card-sm" data-aos="fade-up" data-aos-delay="450">
+              <div class="org-avatar org-avatar-blue"><i class="ti ti-traffic-cone"></i></div>
+              <div class="org-card-body"><h4>Pengatur</h4><p>Pengatur Lalu Lintas</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="divider" data-aos="fade-up">Galeri</div>
+      <div class="galeri">
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="100" onclick="openLightbox('galeriKegiatan',0)"><img src="1.png" alt="Galeri Kegiatan 1"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="150" onclick="openLightbox('galeriKegiatan',1)"><img src="2.jpeg" alt="Galeri Kegiatan 2"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="200" onclick="openLightbox('galeriKegiatan',2)"><img src="3.png" alt="Galeri Kegiatan 3"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="250" onclick="openLightbox('galeriKegiatan',3)"><img src="4.png" alt="Galeri Kegiatan 4"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="300" onclick="openLightbox('galeriKegiatan',4)"><img src="5.png" alt="Galeri Kegiatan 5"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="350" onclick="openLightbox('galeriKegiatan',5)"><img src="6.png" alt="Galeri Kegiatan 6"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="400" onclick="openLightbox('galeriKegiatan',6)"><img src="7.png" alt="Galeri Kegiatan 7"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="450" onclick="openLightbox('galeriKegiatan',7)"><img src="8.JPG" alt="Galeri Kegiatan 8"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="450" onclick="openLightbox('galeriKegiatan',8)"><img src="9.jpeg" alt="Galeri Kegiatan 9"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="450" onclick="openLightbox('galeriKegiatan',9)"><img src="10.JPG" alt="Galeri Kegiatan 10"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="450" onclick="openLightbox('galeriKegiatan',10)"><img src="11.JPG" alt="Galeri Kegiatan 11"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="450" onclick="openLightbox('galeriKegiatan',11)"><img src="12.png" alt="Galeri Kegiatan 12"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="450" onclick="openLightbox('galeriKegiatan',12)"><img src="13.JPG" alt="Galeri Kegiatan 13"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="450" onclick="openLightbox('galeriKegiatan',13)"><img src="14.JPG" alt="Galeri Kegiatan 14"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="450" onclick="openLightbox('galeriKegiatan',14)"><img src="15.JPG" alt="Galeri Kegiatan 15"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="450" onclick="openLightbox('galeriKegiatan',15)"><img src="21.jpeg" alt="Galeri Kegiatan 16"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="450" onclick="openLightbox('galeriKegiatan',16)"><img src="16.png" alt="Galeri Kegiatan 17"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="250" onclick="openLightbox('galeriKegiatan',17)"><img src="17.JPG" alt="Galeri Kegiatan 18"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="250" onclick="openLightbox('galeriKegiatan',18)"><img src="18.JPG" alt="Galeri Kegiatan 19"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="250" onclick="openLightbox('galeriKegiatan',19)"><img src="19.JPG" alt="Galeri Kegiatan 20"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="250" onclick="openLightbox('galeriKegiatan',20)"><img src="20.JPG" alt="Galeri Kegiatan 21"></div>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- FASILITAS -->
+  <div class="page" id="p-fasilitas">
+    <div class="ph">
+      <svg class="phcirc" viewBox="0 0 800 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><g stroke="white" stroke-width="0.7" fill="none" opacity="0.06"><line x1="0" y1="35" x2="800" y2="35"/><line x1="0" y1="68" x2="800" y2="68"/><line x1="120" y1="0" x2="120" y2="80"/><line x1="420" y1="0" x2="420" y2="80"/><line x1="680" y1="0" x2="680" y2="80"/><circle cx="120" cy="35" r="3" fill="rgba(200,168,75,0.7)" stroke="none"/><circle cx="420" cy="68" r="3" fill="rgba(200,168,75,0.7)" stroke="none"/><circle cx="680" cy="35" r="3" fill="rgba(200,168,75,0.7)" stroke="none"/></g></svg>
+      <div class="phcont" data-aos="fade-up">
+        <div class="ph-label">Sarana & Prasarana</div>
+        <div class="ph-title">Fasilitas UPPKB Pallangga</div>
+        <div class="ph-desc">Sarana penunjang yang tersedia untuk mendukung pelayanan penimbangan dan pemeriksaan kendaraan</div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="fasilitas-photo" data-aos="fade-up"><img src="gedung-uppkb.jpg" alt="Kantor Operasional UPPKB Pallangga"></div>
+      <div class="fas-main-caption" data-aos="fade-up" data-aos-delay="100"><h3>Kantor Operasional</h3><p>Gedung utama UPPKB Pallangga yang menjadi pusat kegiatan pengawasan, pemeriksaan, dan pelayanan administrasi penimbangan kendaraan angkutan barang.</p></div>
+      <div class="jabatan-grid fas-grid">
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="50"><div class="fas-img"><img src="Papan_Nama.jpeg" alt="Papan Nama UPPKB"></div><div class="jab-icon ib"><i class="ti ti-tag"></i></div><h3>Papan Nama UPPKB</h3><p>Sebagai tanda lokasi UPPKB Pallangga</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="100"><div class="fas-img"><img src="Pintu.jpeg" alt="Pintu Utama"></div><div class="jab-icon ig"><i class="ti ti-door"></i></div><h3>Pintu Utama</h3><p>Akses keluar dan masuk menuju area operasional UPPKB Pallangga.</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="150"><div class="fas-img"><img src="Ruang_Tunggu.png" alt="Ruangan Tunggu"></div><div class="jab-icon ip"><i class="ti ti-armchair"></i></div><h3>Ruangan Tunggu</h3><p>Area yang disediakan bagi pengemudi dan tamu untuk menunggu selama proses pemeriksaan dan penimbangan kendaraan berlangsung.</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="200"><div class="fas-img"><img src="Ruang_Admin.jpeg" alt="Ruangan Admin"></div><div class="jab-icon ip"><i class="ti ti-briefcase"></i></div><h3>Ruangan Admin</h3><p>Tempat pelaksanaan kegiatan administrasi untuk mendukung operasional UPPKB.</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="250"><div class="fas-img"><img src="Ruang_Operator.jpeg" alt="Ruangan Operator"></div><div class="jab-icon it"><i class="ti ti-headset"></i></div><h3>Ruangan Operator</h3><p>Tempat petugas operator melaksanakan pengawasan dan pengelolaan data operasional UPPKB.</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="300"><div class="fas-img"><img src="Ruang_Penindakan.jpeg" alt="Ruangan Penindakan"></div><div class="jab-icon it"><i class="ti ti-gavel"></i></div><h3>Ruangan Penindakan</h3><p>Tempat memproses dan menindaklanjuti kendaraan yang terbukti melanggar ketentuan muatan, dimensi, atau kelengkapan dokumen.</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="50"><div class="fas-img"><img src="APAR.png" alt="Alat Pemadam Api Ringan"></div><div class="jab-icon ipi"><i class="ti ti-fire-extinguisher"></i></div><h3>Alat Pemadam Api Ringan</h3><p>Alat pemadam kebakaran untuk penanganan awal apabila terjadi kebakaran di area UPPKB.</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="100"><div class="fas-img"><img src="Kotak_P3K.png" alt="Kotak P3K"></div><div class="jab-icon ir"><i class="ti ti-first-aid-kit"></i></div><h3>Kotak P3K</h3><p>Menyediakan perlengkapan pertolongan pertama guna menangani cedera ringan atau keadaan darurat di area UPPKB.</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="150"><div class="fas-img"><img src="AC.png" alt="AC (Air Conditioner)"></div><div class="jab-icon ib"><i class="ti ti-air-conditioning"></i></div><h3>AC (Air Conditioner)</h3><p>Menjaga suhu ruangan agar tetap nyaman sehingga mendukung kelancaran aktivitas dan operasional di setiap ruangan UPPKB.</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="200"><div class="fas-img"><img src="Platfrom_JTO.png" alt="Jembatan Timbang Digital"></div><div class="jab-icon ig"><i class="ti ti-scale"></i></div><h3>Platform JTO</h3><p>Platfrom jembatan timbang online berfungsi sebagai tempat kendaraan berhenti untuk ditimbang</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="250"><div class="fas-img"><img src="Palang.jpeg" alt="Palang Platform JTO"></div><div class="jab-icon ip"><i class="ti ti-barrier-block"></i></div><h3>Palang Platform JTO</h3><p>Mengatur akses kendaraan pada area penimbangan di Platform JTO.</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="300"><div class="fas-img"><img src="Pos_Jaga.png" alt="Gazebo Pos Jaga"></div><div class="jab-icon it"><i class="ti ti-home-2"></i></div><h3>Gazebo Pos Jaga</h3><p>Sebagai tempat petugas melakukan pengawasan terhadap kendaraan yang keluar dan masuk</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="50"><div class="fas-img"><img src="Lampu.jpeg" alt="Lampu Penerangan Jalan"></div><div class="jab-icon ipi"><i class="ti ti-bulb"></i></div><h3>Lampu Penerangan Jalan</h3><p>Memberikan pencahayaan di area UPPKB guna mendukung keamanan dan kelancaran operasional pada malam hari.</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="100"><div class="fas-img"><img src="Rambu.png" alt="Rambu Penunjuk Arah"></div><div class="jab-icon ir"><i class="ti ti-direction-sign"></i></div><h3>Rambu Penunjuk Arah</h3><p>Memberikan informasi arah dan lokasi guna memudahkan kendaraan dalam memasuki dan keluar area UPPKB.</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="150"><div class="fas-img"><img src="Parkir_Penindakan.png" alt="Parkir Penindakan"></div><div class="jab-icon ib"><i class="ti ti-alert-triangle"></i></div><h3>Parkir Penindakan</h3><p>Area untuk menempatkan kendaraan yang melakukan pelanggaran agar mendapatkan pemeriksaan dan penindakan lebih lanjut oleh petugas UPPKB.</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="200"><div class="fas-img"><img src="Parkir_Pegawai.png" alt="Parkir Pegawai"></div><div class="jab-icon ig"><i class="ti ti-parking"></i></div><h3>Parkir Pegawai</h3><p>Area parkir kendaraan bagi pegawai UPPKB Pallangga</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="250"><div class="fas-img"><img src="CCTV.png" alt="CCTV Platform JTO"></div><div class="jab-icon ip"><i class="ti ti-camera"></i></div><h3>CCTV Platform JTO</h3><p>Memantau aktivitas di area Platform JTO guna mendukung keamanan dan pengawasan operasional.</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="300"><div class="fas-img"><img src="Rambu_Cone.png" alt="Rambu Cone"></div><div class="jab-icon it"><i class="ti ti-cone-2"></i></div><h3>Rambu Cone</h3><p>Mengarahkan dan mengalihkan lalu lintas.</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="50"><div class="fas-img"><img src="External.png" alt="External Display JTO"></div><div class="jab-icon ipi"><i class="ti ti-device-tv"></i></div><h3>External Display JTO</h3><p>Menampilkan hasil penimbangan kendaraan angkutan barang dan jumlah kelebihan muatannya.</p></div>
+        <div class="jabatan-card fas-card" data-aos="fade-up" data-aos-delay="100"><div class="fas-img"><img src="APIL.png" alt="Rambu Pendahulu Petunjuk Jurusan"></div><div class="jab-icon ir"><i class="ti ti-traffic-lights"></i></div><h3>Rambu Pendahulu Petunjuk Jurusan</h3><p>Memberikan informasi dan mengarahkan kendaraan angkutan barang agar memasuki area jembatan timbang.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYANAN -->
+  <div class="page" id="p-layanan">
+    <div class="ph">
+      <svg class="phcirc" viewBox="0 0 800 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><g stroke="white" stroke-width="0.7" fill="none" opacity="0.06"><line x1="0" y1="35" x2="800" y2="35"/><line x1="0" y1="68" x2="800" y2="68"/><line x1="120" y1="0" x2="120" y2="80"/><line x1="420" y1="0" x2="420" y2="80"/><line x1="680" y1="0" x2="680" y2="80"/><circle cx="120" cy="35" r="3" fill="rgba(200,168,75,0.7)" stroke="none"/><circle cx="420" cy="68" r="3" fill="rgba(200,168,75,0.7)" stroke="none"/><circle cx="680" cy="35" r="3" fill="rgba(200,168,75,0.7)" stroke="none"/></g></svg>
+      <div class="phcont" data-aos="fade-up">
+        <div class="ph-label">Ketentuan Khusus</div>
+        <div class="ph-title">Kendaraan Dikecualikan dari Penimbangan</div>
+        <div class="ph-desc">Klik kartu kendaraan untuk melihat alasan pengecualian dari kewajiban masuk jembatan timbang</div>
+      </div>
+    </div>
+
+    <!-- SEKSI 1: DENGAN BACKGROUND PUTIH -->
+    <div class="sec">
+      <div class="layanan-intro" data-aos="fade-up">Kami melayani penimbangan dan pemeriksaan untuk <strong>semua kendaraan angkutan barang</strong>, kecuali kendaraan yang termasuk kategori berikut: <strong>Angkutan Peti Kemas</strong>, <strong>Tangki BBM/BBG</strong>, <strong>Barang Berbahaya (B3)</strong>, dan <strong>Alat Berat.</strong></div>
+      <div class="ldasar-note" data-aos="fade-up" data-aos-delay="100">Berdasarkan Permenhub No. 18 Tahun 2021 Pasal 5 ayat (5)</div>
+      <div class="lgrid">
+        <div class="lcard" data-aos="fade-up" data-aos-delay="150" onclick="showLayanan('peti-kemas')"><span class="lbadge">Dikecualikan</span><div class="licon ib"><i class="ti ti-container" style="font-size:22px"></i></div><h3>Angkutan Peti Kemas</h3><p>Sudah memiliki sistem pengawasan dan jalur distribusi tersendiri.</p><div class="lcta">→ Lihat alasan pengecualian</div></div>
+        <div class="lcard" data-aos="fade-up" data-aos-delay="200" onclick="showLayanan('tangki')"><span class="lbadge">Dikecualikan</span><div class="licon ig"><i class="ti ti-gas-station" style="font-size:22px"></i></div><h3>Tangki BBM/BBG</h3><p>Diawasi ketat oleh regulasi khusus distribusi bahan bakar bersubsidi.</p><div class="lcta">→ Lihat alasan pengecualian</div></div>
+        <div class="lcard" data-aos="fade-up" data-aos-delay="250" onclick="showLayanan('berbahaya')"><span class="lbadge">Dikecualikan</span><div class="licon ir"><i class="ti ti-biohazard" style="font-size:22px"></i></div><h3>Barang Berbahaya</h3><p>Memerlukan penanganan dan pengawasan khusus sesuai klasifikasi B3.</p><div class="lcta">→ Lihat alasan pengecualian</div></div>
+        <div class="lcard" data-aos="fade-up" data-aos-delay="300" onclick="showLayanan('alat-berat')"><span class="lbadge">Dikecualikan</span><div class="licon ip"><i class="ti ti-bulldozer" style="font-size:22px"></i></div><h3>Alat Berat</h3><p>Bukan kendaraan angkutan barang umum dan berjalan dengan izin tersendiri.</p><div class="lcta">→ Lihat alasan pengecualian</div></div>
+      </div>
+    </div>
+
+    <!-- SEKSI 2: DIPISAH MENJADI SEKSI SENDIRI (OTOMATIS BERUBAH WARNA BACKGROUND) -->
+    <div class="sec">
+      <div class="menu-header" data-aos="fade-up">
+        <div class="menu-label">Regulasi Muatan</div>
+        <div class="menu-title">Jenis Pelanggaran</div>
+        <div class="menu-desc">Kategori pelanggaran yang diperiksa pada setiap kendaraan angkutan barang</div>
+      </div>
+      <div class="pelanggaran-grid">
+        <div class="pl-item" data-aos="fade-up" data-aos-delay="100" onclick="showLayanan('dokumen')"><div class="pl-num">1</div><div class="pl-icon"><i class="ti ti-file-text"></i></div><h4>Dokumen</h4><p>Buku Uji, Surat Jalan, SIM (Surat Izin Mengemudi), dan STNK (Surat Tanda Nomor Kendaraan).</p></div>
+        <div class="pl-item" data-aos="fade-up" data-aos-delay="150" onclick="showLayanan('daya-angkut')"><div class="pl-num">2</div><div class="pl-icon"><i class="ti ti-scale"></i></div><h4>Daya Angkut</h4><p>Berat muatan tidak melebihi batas JBI kendaraan dan 5% muatan.</p></div>
+        <div class="pl-item" data-aos="fade-up" data-aos-delay="200" onclick="showLayanan('dimensi')"><div class="pl-num">3</div><div class="pl-icon"><i class="ti ti-ruler-2"></i></div><h4>Dimensi</h4><p>Panjang, lebar, tinggi, FOH (Front Over Hang) , ROH (Rear Over Hang), WB (Wheelbase) sesuai izin kendaraan.</p></div>
+        <div class="pl-item" data-aos="fade-up" data-aos-delay="250" onclick="showLayanan('persyaratan-teknis')"><div class="pl-num">4</div><div class="pl-icon"><i class="ti ti-tool"></i></div><h4>Persyaratan Teknis</h4><p>Kondisi teknis dan laik jalan kendaraan angkutan.</p></div>
+        <div class="pl-item" data-aos="fade-up" data-aos-delay="300" onclick="showLayanan('tata-cara-muat')"><div class="pl-num">5</div><div class="pl-icon"><i class="ti ti-truck"></i></div><h4>Tata Cara Muat</h4><p>Cara penyusunan dan pengikatan muatan yang benar.</p></div>
+        <div class="pl-item" data-aos="fade-up" data-aos-delay="350" onclick="showLayanan('kelas-jalan')"><div class="pl-num">6</div><div class="pl-icon"><i class="ti ti-road"></i></div><h4>Kelas Jalan</h4><p>Kesesuaian kendaraan dengan kelas jalan yang dilalui.</p></div>
+      </div>
+      <div class="tc-note" data-aos="fade-up" style="margin-top:24px;">Berdasarkan UU Nomor 22 Tahun 2009 Pasal 307, setiap orang yang mengemudikan kendaraan bermotor angkutan umum barang yang tidak mematuhi ketentuan mengenai tata cara pemuatan, daya angkut, dimensi kendaraan dipidana dengan pidana kurungan paling lama 2 bulan atau denda paling banyak Rp500.000,00</div>
+    </div>
+  </div>
+
+  <!-- KOMODITI -->
+  <div class="page" id="p-komoditi">
+    <div class="ph">
+      <svg class="phcirc" viewBox="0 0 800 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><g stroke="white" stroke-width="0.7" fill="none" opacity="0.06"><line x1="0" y1="35" x2="800" y2="35"/><line x1="0" y1="68" x2="800" y2="68"/><line x1="120" y1="0" x2="120" y2="80"/><line x1="420" y1="0" x2="420" y2="80"/><line x1="680" y1="0" x2="680" y2="80"/><circle cx="120" cy="35" r="3" fill="rgba(200,168,75,0.7)" stroke="none"/><circle cx="420" cy="68" r="3" fill="rgba(200,168,75,0.7)" stroke="none"/><circle cx="680" cy="35" r="3" fill="rgba(200,168,75,0.7)" stroke="none"/></g></svg>
+      <div class="phcont" data-aos="fade-up">
+        <div class="ph-label">Muatan Kendaraan</div>
+        <div class="ph-title">Jenis Komoditi</div>
+        <div class="ph-desc">Kategori muatan dan barang yang diatur dalam pengujian kendaraan bermotor</div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="kom-grid">
+        <div class="kcard" data-aos="fade-up" data-aos-delay="50"><div class="ki2">🌾</div><h3>Hasil Pertanian</h3><p>Beras, kedelai, cabe, bawang.</p><span class="kbadge">Barang Pokok</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="100"><div class="ki2">🐄</div><h3>Hasil Perikanan & Peternakan</h3><p>Ikan, daging, dan hasil ternak.</p><span class="kbadge">Barang Pokok</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="150"><div class="ki2">🍎</div><h3>Buah dan Sayur</h3><p>Hasil kebun segar.</p><span class="kbadge">Barang Pokok</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="200"><div class="ki2">🛢️</div><h3>Hasil Industri</h3><p>Minyak goreng, tepung, gula.</p><span class="kbadge">Barang Pokok</span></div>
+
+        <div class="kcard" data-aos="fade-up" data-aos-delay="250"><div class="ki2">🌱</div><h3>Benih</h3><p>Bibit tanaman pertanian.</p><span class="kbadge" style="background:#FCE8E8;color:#993C1D">Barang Penting</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="50"><div class="ki2">🧪</div><h3>Pupuk</h3><p>Pupuk pertanian.</p><span class="kbadge" style="background:#FCE8E8;color:#993C1D">Barang Penting</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="100"><div class="ki2">🔥</div><h3>Gas Elpiji</h3><p>Bahan bakar gas rumah tangga.</p><span class="kbadge" style="background:#FCE8E8;color:#993C1D">Barang Penting</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="150"><div class="ki2">🚪</div><h3>Triplek</h3><p>Papan kayu olahan.</p><span class="kbadge" style="background:#FCE8E8;color:#993C1D">Barang Penting</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="200"><div class="ki2">🧱</div><h3>Semen</h3><p>Bahan bangunan konstruksi.</p><span class="kbadge" style="background:#FCE8E8;color:#993C1D">Barang Penting</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="250"><div class="ki2">🔩</div><h3>Besi Baja Konstruksi</h3><p>Material konstruksi berat.</p><span class="kbadge" style="background:#FCE8E8;color:#993C1D">Barang Penting</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="50"><div class="ki2">⚙️</div><h3>Baja Ringan</h3><p>Rangka bangunan ringan.</p><span class="kbadge" style="background:#FCE8E8;color:#993C1D">Barang Penting</span></div>
+
+        <div class="kcard" data-aos="fade-up" data-aos-delay="100"><div class="ki2">⬜</div><h3>Material Konstruksi Lainnya</h3><p>Keramik, seng, pasir, batu.</p><span class="kbadge" style="background:#EAF3DE;color:#3B6D11">Barang Lainnya</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="150"><div class="ki2">🥤</div><h3>Air Mineral & Minuman Kemasan</h3><p>Minuman dalam kemasan.</p><span class="kbadge" style="background:#EAF3DE;color:#3B6D11">Barang Lainnya</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="200"><div class="ki2">🥫</div><h3>Makanan Ringan & Kaleng</h3><p>Makanan olahan kemasan.</p><span class="kbadge" style="background:#EAF3DE;color:#3B6D11">Barang Lainnya</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="250"><div class="ki2">🧴</div><h3>Barang Konsumsi</h3><p>Pakaian, popok, alat kebersihan, alat tulis.</p><span class="kbadge" style="background:#EAF3DE;color:#3B6D11">Barang Lainnya</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="50"><div class="ki2">🌳</div><h3>Kayu Gelondongan</h3><p>Diameter kurang dari 1 meter.</p><span class="kbadge" style="background:#EAF3DE;color:#3B6D11">Barang Lainnya</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="100"><div class="ki2">🛣️</div><h3>Aspal</h3><p>Bahan konstruksi jalan.</p><span class="kbadge" style="background:#EAF3DE;color:#3B6D11">Barang Lainnya</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="150"><div class="ki2">🌴</div><h3>Perkebunan</h3><p>Pinang, sagu, sawit.</p><span class="kbadge" style="background:#EAF3DE;color:#3B6D11">Barang Lainnya</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="200"><div class="ki2">📱</div><h3>Elektronik</h3><p>Perangkat elektronik.</p><span class="kbadge" style="background:#EAF3DE;color:#3B6D11">Barang Lainnya</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="250"><div class="ki2">🪑</div><h3>Peralatan Rumah Tangga</h3><p>Meubelair, barang kelontong.</p><span class="kbadge" style="background:#EAF3DE;color:#3B6D11">Barang Lainnya</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="50"><div class="ki2">⛏️</div><h3>Hasil Tambang</h3><p>Batu bara, timah, kapur, sodium.</p><span class="kbadge" style="background:#EAF3DE;color:#3B6D11">Barang Lainnya</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="100"><div class="ki2">🚗</div><h3>Barang Otomotif</h3><p>Sparepart dan aksesoris kendaraan.</p><span class="kbadge" style="background:#EAF3DE;color:#3B6D11">Barang Lainnya</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="150"><div class="ki2">📦</div><h3>Barang Paket / Ekspedisi</h3><p>Kiriman barang ekspedisi.</p><span class="kbadge" style="background:#EAF3DE;color:#3B6D11">Barang Lainnya</span></div>
+        <div class="kcard" data-aos="fade-up" data-aos-delay="200"><div class="ki2">♻️</div><h3>Barang Rongsokan</h3><p>Besi bekas, kardus bekas, peralatan bekas.</p><span class="kbadge" style="background:#EAF3DE;color:#3B6D11">Barang Lainnya</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIM PENGEMBANG -->
+  <div class="page" id="p-tim">
+    <div class="ph">
+      <svg class="phcirc" viewBox="0 0 800 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"><g stroke="white" stroke-width="0.7" fill="none" opacity="0.06"><line x1="0" y1="35" x2="800" y2="35"/><line x1="0" y1="68" x2="800" y2="68"/><line x1="120" y1="0" x2="120" y2="80"/><line x1="420" y1="0" x2="420" y2="80"/><line x1="680" y1="0" x2="680" y2="80"/><circle cx="120" cy="35" r="3" fill="rgba(200,168,75,0.7)" stroke="none"/><circle cx="420" cy="68" r="3" fill="rgba(200,168,75,0.7)" stroke="none"/><circle cx="680" cy="35" r="3" fill="rgba(200,168,75,0.7)" stroke="none"/></g></svg>
+      <div class="phcont" data-aos="fade-up">
+        <div class="ph-label">Tim Kami</div>
+        <div class="ph-title">Tim Pengembang</div>
+        <div class="ph-desc">Website ini dikembangkan oleh mahasiswa Jurusan Teknik Informatika dan Komputer Universitas Negeri Makassar</div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="tim-grid">
+        <div class="tim-card" data-aos="fade-up" data-aos-delay="100">
+  <div class="tim-avatar"
+       onclick="showAnggota('Riqqah Dhian Shefira','Pend. Teknik Informatika & Komputer','240209500060','riqqahdhian','riqqahdhian5','riqqah.jpg' )" style="cursor:pointer"> <img src="riqqah.jpg" alt="Riqqah Dhian Shefira"> </div>
+  <h3>Riqqah Dhian Shefira</h3>
+  <div class="tim-nim">NIM: 240209500060</div>
+  <div class="tim-prodi">Pend. Teknik Informatika & Komputer</div>
+  <div class="tim-sosmed">
+    <a href="https://www.instagram.com/riqqahdhian/" target="_blank" title="Instagram"> <i class="ti ti-brand-instagram"></i> @riqqahdhian</a>
+    <a href="https://www.tiktok.com/@riqqahdhian5" target="_blank" title="TikTok"> <i class="ti ti-brand-tiktok"></i> @riqqahdhian5 </a>
+  </div>
+</div>
+<div class="tim-card" data-aos="fade-up" data-aos-delay="200">
+  <div class="tim-avatar"
+       onclick="showAnggota('Nurhaliza','Pend. Teknik Informatika & Komputer','240209500063','hlyz.nr','','icha.jpg')"style="cursor:pointer"> <img src="icha.jpg" alt="Nurhaliza"> </div>
+  <h3>Nurhaliza</h3>
+  <div class="tim-nim">NIM: 240209500063</div>
+  <div class="tim-prodi">Pend. Teknik Informatika & Komputer</div>
+  <div class="tim-sosmed">
+    <a href="https://www.instagram.com/hlyz.nr/" target="_blank" title="Instagram"> <i class="ti ti-brand-instagram"></i> @hlyz.nr </a>
+  </div>
+</div>
+<div class="tim-card" data-aos="fade-up" data-aos-delay="300">
+  <div class="tim-avatar"
+       onclick="showAnggota('Muh. Haidir Nugraha','Teknik Komputer','240210502073','muh.haidirn','karlo_248','didit.jpg')" style="cursor:pointer"> <img src="didit.jpg" alt="Muh. Haidir Nugraha"> </div>
+  <h3>Muh. Haidir Nugraha</h3>
+  <div class="tim-nim">
+    NIM: 240210502073
+  </div>
+  <div class="tim-prodi">
+    Teknik Komputer
+  </div>
+  <div class="tim-sosmed">
+    <a href="https://www.instagram.com/muh.haidirn/"
+       target="_blank"
+       title="Instagram">
+      <i class="ti ti-brand-instagram"></i>
+      @muh.haidirn
+    </a>
+    <a href="https://www.tiktok.com/@karlo_248"
+       target="_blank"
+       title="TikTok">
+      <i class="ti ti-brand-tiktok"></i>
+      @karlo_248
+    </a>
+  </div>
+</div>
+</div>
+      <div class="divider" data-aos="fade-up">Galeri Praktik Industri</div>
+      <div class="galeri-tim">
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="100" onclick="openLightbox('galeriPI',0)"><img src="pi1.JPG" alt="Galeri Praktik Industri 1"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="150" onclick="openLightbox('galeriPI',1)"><img src="pi2.JPG" alt="Galeri Praktik Industri 2"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="200" onclick="openLightbox('galeriPI',2)"><img src="pi3.JPG" alt="Galeri Praktik Industri 3"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="250" onclick="openLightbox('galeriPI',3)"><img src="pi4.jpg" alt="Galeri Praktik Industri 4"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="300" onclick="openLightbox('galeriPI',4)"><img src="pi5.jpg" alt="Galeri Praktik Industri 5"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="350" onclick="openLightbox('galeriPI',5)"><img src="pi6.jpg" alt="Galeri Praktik Industri 6"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="400" onclick="openLightbox('galeriPI',6)"><img src="pi7.JPG" alt="Galeri Praktik Industri 7"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="450" onclick="openLightbox('galeriPI',7)"><img src="pi8.JPG" alt="Galeri Praktik Industri 8"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="500" onclick="openLightbox('galeriPI',8)"><img src="pi9.jpeg" alt="Galeri Praktik Industri 9"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="500" onclick="openLightbox('galeriPI',9)"><img src="pi10.JPG" alt="Galeri Praktik Industri 10"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="500" onclick="openLightbox('galeriPI',10)"><img src="pi11.JPG" alt="Galeri Praktik Industri 11"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="500" onclick="openLightbox('galeriPI',11)"><img src="pi12.JPG" alt="Galeri Praktik Industri 12"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="500" onclick="openLightbox('galeriPI',12)"><img src="pi13.JPG" alt="Galeri Praktik Industri 13"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="500" onclick="openLightbox('galeriPI',13)"><img src="pi14.JPG" alt="Galeri Praktik Industri 14"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="500" onclick="openLightbox('galeriPI',14)"><img src="pi15.jpeg" alt="Galeri Praktik Industri 15"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="500" onclick="openLightbox('galeriPI',15)"><img src="pi16.jpeg" alt="Galeri Praktik Industri 16"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="500" onclick="openLightbox('galeriPI',16)"><img src="pi17.jpeg" alt="Galeri Praktik Industri 17"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="500" onclick="openLightbox('galeriPI',17)"><img src="pi18.jpeg" alt="Galeri Praktik Industri 18"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="500" onclick="openLightbox('galeriPI',18)"><img src="pi19.jpeg" alt="Galeri Praktik Industri 19"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="500" onclick="openLightbox('galeriPI',19)"><img src="pi20.png" alt="Galeri Praktik Industri 20"></div>
+        <div class="galeri-card" data-aos="zoom-in" data-aos-delay="500" onclick="openLightbox('galeriPI',20)"><img src="pi21.png" alt="Galeri Praktik Industri 21"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="footer-logo">UPPKB Pallangga</div>
+      <p class="footer-desc">Unit Pelaksana Penimbangan Kendaraan Bermotor Pallangga. Melayani penimbangan dan pemeriksaan kendaraan bermotor secara profesional dan transparan.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/uppkbpallangga19" target="_blank"><i class="ti ti-brand-instagram"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-title">Tautan Terkait</div>
+      <a class="footer-link" onclick="go('dashboard')">Home</a>
+      <a class="footer-link" onclick="go('struktur')">Struktur Organisasi</a>
+      <a class="footer-link" onclick="go('fasilitas')">Fasilitas</a>
+      <a class="footer-link" onclick="go('layanan')">Layanan</a>
+      <a class="footer-link" onclick="go('komoditi')">Jenis Komoditi</a>
+      <a class="footer-link" onclick="go('tim')">Tim Pengembang</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-title">Hubungi Kami</div>
+      <div class="footer-item"><i class="ti ti-mail"></i> uppkbpallanggabptdiisulsel@gmail.com</div>
+      <div class="footer-item"><i class="ti ti-brand-instagram"></i> @uppkbpallangga19</div>
+      <div class="footer-item"><i class="ti ti-clock"></i> Pos timbang beroperasi 24 jam</div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-title">Lokasi UPPKB</div>
+      <div class="footer-item"><i class="ti ti-map-pin"></i> Jl. Poros Palangga, Mangalli, Kec. Pallangga, Kab. Gowa</div>
+      <a class="footer-maps-btn" href="https://maps.google.com/?q=UPPKB+Pallangga" target="_blank"><i class="ti ti-map-2"></i> Buka di Google Maps</a>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 UPPKB Pallangga. All rights reserved.</div>
+</footer>
+
+<!-- PUSTAKA AOS JS -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<!-- SCRIPT UTAMA ANDA -->
+<script src="script.js"></script>
+
+<!-- SCRIPT PENGATUR ANIMASI LINTAS HALAMAN (SPA) -->
+<script>
+  AOS.init({
+    duration: 700,
+    easing: 'ease-out-cubic',
+    once: false
+  });
+
+  function triggerPageAnimation(pageId) {
+    const targetPage = document.getElementById('p-' + pageId) || document.getElementById(pageId);
+    if (targetPage) {
+      const aosElements = targetPage.querySelectorAll('[data-aos]');
+      
+      aosElements.forEach(el => {
+        el.classList.remove('aos-animate');
+      });
+
+      setTimeout(() => {
+        AOS.refreshHard();
+        aosElements.forEach(el => {
+          el.classList.add('aos-animate');
+        });
+      }, 50);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof window.go === 'function') {
+      const originalGo = window.go;
+      window.go = function(pageId) {
+        originalGo(pageId);
+        triggerPageAnimation(pageId);
+      };
+    }
+  });
+</script>
+</body>
+</html>
